@@ -1,0 +1,12 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+<cc:interface>
+	<cc:attribute name="lable" />
+	<cc:attribute name="to" />
+</cc:interface>
+<cc:implementation>
+	<p:commandLink value="#{cc.attrs.lable}" update="contents"
+		actionListener="#{paginationController.goTo(cc.attrs.to)}"/>
+</cc:implementation>
+</html>

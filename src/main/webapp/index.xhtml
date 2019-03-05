@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <h:head id="head">
+        <title>#{msg.newAgeErp}</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <h:outputStylesheet library="css" name="erp.css"/>
+        <h:outputStylesheet library="css" name="erp-rtl.css" rendered="#{view.locale.language eq 'ar'}"/>
+        <h:outputScript library="js" name="erp.js"/>
+    </h:head> 
+    <h:body id="body">
+        <f:view locale="#{session.getAttribute('language')}">
+            <div id="top">
+                <i id="menu-div" class="fa fa-navicon top-icon" onclick="openNav()"/>
+                <h:form id="options-div">
+                    <i jsf:id="languages" class="fa fa-language top-icon"/>
+                    <p:menu overlay="true" trigger="languages" my="left top" at="left bottom">
+                        <p:menuitem value="عربي" ajax="false" actionListener="#{securityController.changeLanguage('ar')}" rendered="#{session.getAttribute('language') ne 'ar'}"/>
+                        <p:menuitem value="English" ajax="false" actionListener="#{securityController.changeLanguage('en')}"  rendered="#{session.getAttribute('language') ne 'en'}"/>
+                    </p:menu>
+                    <i jsf:id="profile" class="fa fa-user-circle top-icon"/>
+                    <p:menu overlay="true" trigger="profile" my="left top" at="left bottom">
+                        <p:menuitem value="#{msg.logout}" actionListener="#{securityController.logout()}" action="/index.xhtml/?faces-redirect=true"/>
+                    </p:menu>
+                </h:form>
+            </div>
+            <div id="sidenav">
+                <h:form>
+                    <p:panelMenu>
+                        <p:submenu label="${msg.accounting}">
+                            <p:menuitem value="#{msg.currencies}" update="contents"
+                                        actionListener="#{paginationController.goTo('/WEB-INF/accounting/currency.xhtml')}"/>
+                            <p:menuitem value="#{msg.accounts}" update="contents"
+                                        actionListener="#{paginationController.goTo('/WEB-INF/accounting/account.xhtml')}"/>
+                            <p:menuitem value="#{msg.transactions}" update="contents"
+                                        actionListener="#{paginationController.goTo('/WEB-INF/accounting/transaction.xhtml')}"/>
+                        </p:submenu>
+                        <p:submenu label="${msg.cash}"/>
+                        <p:submenu label="${msg.bank}"/>
+                        <p:submenu label="${msg.inventory}"/>
+                        <p:submenu label="${msg.sales}"/>
+                        <p:submenu label="${msg.purchasing}"/>
+                        <p:submenu label="${msg.security}">
+                            <p:menuitem value="#{msg.users}" update="contents"
+                                        actionListener="#{paginationController.goTo('/WEB-INF/security/user.xhtml')}"/>
+                            <p:menuitem value="#{msg.groups}" update="contents"
+                                        actionListener="#{paginationController.goTo('/WEB-INF/security/group.xhtml')}"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+            </div>
+            <div jsf:id="contents" layout="block">
+                <ui:include src="#{paginationController.currentContent}" />
+            </div>
+            <p:growl id="globalMessages" />
+            <h:form id="confarmForm">
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="${msg.yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="${msg.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </h:form>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <h:outputText value=" #{msg.processing} ..." />
+            </p:dialog>
+        </f:view>
+    </h:body>
+</html>

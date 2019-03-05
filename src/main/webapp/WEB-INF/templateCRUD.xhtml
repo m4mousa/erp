@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:my="http://xmlns.jcp.org/jsf/composite/myComp">
+    <h:form id="mainForm">
+        <p:fragment>
+            <p:commandLink title="#{msg.home}" rendered="#{controller.item ne null}" actionListener="#{controller.prepareList}" update="@form">
+                <i class="fa fa-home top-icon"/>
+            </p:commandLink>
+            <p:commandLink title="#{msg.new}" rendered="#{controller.item eq null}" actionListener="#{controller.prepareCreate}" update="@form">
+                <i class="fa fa-plus top-icon"/>
+            </p:commandLink>
+        </p:fragment>
+        <h:panelGroup layout="block" rendered="#{controller.item ne null}">
+            <my:inputText id="name" lable="${msg.name}" value="#{controller.item.name}" required="true" />
+            <ui:insert name="formContent"/>
+            <h:panelGrid columns="2">
+                <p:commandButton icon="fa fa-save" validateClient="true" value="#{msg.save}" title="#{msg.save}" actionListener="#{controller.create}" update="@form globalMessages" rendered="#{controller.item.id eq null}"/>
+                <p:commandButton icon="fa fa-save" validateClient="true" value="#{msg.save}" title="#{msg.save}" actionListener="#{controller.update}" update="@form globalMessages" rendered="#{controller.item.id ne null}">
+                    <p:confirm header="${msg.confirmationMessage}" message="${msg.areYouSure}"/>
+                </p:commandButton>
+                <p:commandButton icon="fa fa-remove" value="#{msg.delete}" title="#{msg.delete}" actionListener="#{controller.remove}" update="@form globalMessages" rendered="#{controller.item.id ne null}">
+                    <p:confirm header="${msg.confirmationMessage}" message="${msg.areYouSure}"/>
+                </p:commandButton>
+            </h:panelGrid>
+        </h:panelGroup>
+        <p:dataTable widgetVar="t" value="#{controller.items}" var="item" rendered="#{controller.item eq null}" rows="10" paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+            <f:event type="preRenderComponent" listener="#{controller['prepareList']}" />
+            <p:column sortBy="#{item.name}" filterBy="#{item.name}" filterMatchMode="contains">
+                <p:commandLink value="#{item.name}" actionListener="#{controller.prepareUpdate(item.id)}" update="@form"/>
+            </p:column>
+            <ui:insert name="listContent" />
+        </p:dataTable>
+    </h:form>
+</ui:composition>

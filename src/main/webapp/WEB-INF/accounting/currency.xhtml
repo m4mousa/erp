@@ -1,0 +1,12 @@
+<ui:composition template="/WEB-INF/templateCRUD.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:my="http://xmlns.jcp.org/jsf/composite/myComp">
+	<ui:param name="controller" value="#{currencyController}" />
+	<ui:define name="formContent">
+		<my:inputText id="code" lable="${msg.code}"
+			value="#{currencyController.item.code}" required="true" />
+		<my:inputText id="fraction" lable="${msg.fraction}"
+			value="#{currencyController.item.fraction}" required="true" />
+	</ui:define>
+</ui:composition>

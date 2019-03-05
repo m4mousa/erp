@@ -1,0 +1,32 @@
+body {
+    direction: ltr;
+    margin: 0;
+}
+#contents {
+    margin-left: 300px;
+    margin-right: 0px;
+    padding: 5px;
+}
+#sidenav {
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    overflow-x: hidden;
+    background-color: #222222;
+}
+#top {
+    height: 50px;
+    color: white;
+    background-color: #007ad9;
+}
+#menu-div {
+    float: left;
+}
+#options-div {
+    float: right;
+}
+.top-icon {
+    font-size:20px;
+    margin: 15px;
+    cursor: pointer;
+}

@@ -1,0 +1,18 @@
+<ui:composition template="/WEB-INF/templateCRUD.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:my="http://xmlns.jcp.org/jsf/composite/myComp">
+	<ui:param name="controller" value="#{accountController}" />
+	<ui:define name="formContent">
+		<my:inputText id="code" lable="${msg.code}"
+			value="#{accountController.item.code}" required="true" />
+		<my:selectBooleanCheckbox id="active"
+			value="#{accountController.item.active}" lable="#{msg.active}" />
+		<my:selectOneMenu id="parint" lable="${msg.parent}"
+			value="#{accountController.item.parint}"
+			items="#{accountController.parints}" />
+		<my:selectOneMenu id="currency" lable="${msg.currency}"
+			value="#{accountController.item.currency}"
+			items="#{accountController.currencies}" />
+	</ui:define>
+</ui:composition>

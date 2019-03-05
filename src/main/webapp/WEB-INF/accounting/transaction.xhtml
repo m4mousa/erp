@@ -1,0 +1,34 @@
+<ui:composition template="/WEB-INF/templateCRUD.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:my="http://xmlns.jcp.org/jsf/composite/myComp"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:param name="controller" value="#{transactionController}" />
+    <ui:define name="formContent">
+        <my:calendar id="date" lable="#{msg.date}"
+                     value="#{transactionController.item.transactionTime}" required="true" />
+        <my:selectOneMenu id="currency" lable="${msg.currency}"
+                          value="#{transactionController.item.currency}"
+                          items="#{transactionController.currencies}" />
+        <p:commandButton value="+" actionListener="#{transactionController.addTransactiondetail()}" update="details"/>
+        <p:dataTable id="details" value="#{transactionController.item.transactionDetails}" var="detail">
+            <p:column headerText="#{msg.debit}">
+                <p:inputText value="#{detail.debitAmount}" />
+            </p:column>
+            <p:column headerText="#{msg.credit}">
+                <p:inputText value="#{detail.creditAmount}" />
+            </p:column>
+            <p:column headerText="#{msg.account}">
+                <p:selectOneMenu value="#{detail.account}" filter="true" filterMatchMode="contains"
+                                 converter="omnifaces.SelectItemsConverter">
+                    <f:selectItems value="#{transactionController.accounts}"
+                                   var="account" itemLabel="#{account.name}" itemValue="#{account}" />
+                </p:selectOneMenu>
+            </p:column>
+            <p:column headerText="#{msg.description}">
+                <p:inputText value="#{detail.name}" />
+            </p:column>
+        </p:dataTable>
+    </ui:define>
+</ui:composition>

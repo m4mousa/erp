@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+<cc:interface>
+	<cc:attribute name="lable" />
+	<cc:attribute name="id" />
+	<cc:attribute name="value" />
+	<cc:attribute name="required" default="false" />
+</cc:interface>
+<cc:implementation>
+	<p:outputLabel for="#{cc.attrs.id}" value="#{cc.attrs.lable}"
+		style="display: block" />
+	<p:calendar id="#{cc.attrs.id}" value="#{cc.attrs.value}"
+		placeholder="#{cc.attrs.lable}" style="display: block"
+		required="#{cc.attrs.required}" />
+</cc:implementation>
+</html>

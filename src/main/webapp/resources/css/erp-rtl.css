@@ -1,0 +1,28 @@
+body {
+    direction: rtl;
+}
+#menu-div {
+    float: right;
+}
+#options-div {
+    float: left;
+}
+#contents {
+    margin-right: 300px;
+    margin-left: 0px;
+}
+body .ui-paginator .ui-paginator-first::before {
+    content: "\e92e";
+}
+body .ui-paginator .ui-paginator-prev::before {
+    content: "\e932";
+}
+body .ui-paginator .ui-paginator-next::before {
+    content: "\e931";
+}
+body .ui-paginator .ui-paginator-last::before {
+    content: "\e92d";
+}
+body .ui-panelmenu .ui-panelmenu-header .ui-icon.ui-icon-triangle-1-e::before {
+    content: "\e900";
+}

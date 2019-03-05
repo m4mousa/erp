@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<cc:interface>
+	<cc:attribute name="lable" />
+	<cc:attribute name="id" />
+	<cc:attribute name="value" />
+	<cc:attribute name="items" />
+	<cc:attribute name="required" default="false" />
+</cc:interface>
+<cc:implementation>
+	<p:outputLabel for="#{cc.attrs.id}" value="#{cc.attrs.lable}"
+		style="display: block" />
+	<p:selectOneMenu id="#{cc.attrs.id}" value="#{cc.attrs.value}"
+		filter="true" filterMatchMode="contains" style="display: block"
+		required="#{cc.attrs.required}" converter="omnifaces.SelectItemsConverter">
+		<f:selectItem itemLabel="#{cc.attrs.lable}" itemValue="#{null}" noSelectionOption="true"/>
+		<f:selectItems value="#{cc.attrs.items}" var="v" itemLabel="#{v.name}"
+			itemValue="#{v}" />
+	</p:selectOneMenu>
+</cc:implementation>
+</html>
